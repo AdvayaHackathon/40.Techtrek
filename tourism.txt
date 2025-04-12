@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Travel Helper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #007BFF;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background: #333;
+      color: white;
+      padding: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    section {
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    iframe {
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🌍 Travel Helper</h1>
+  <p>Your all-in-one travel assistant</p>
+</header>
+
+<nav>
+  <a href="#food">🍽 Food</a>
+  <a href="#stay">🏨 Stay</a>
+  <a href="#route">🗺 Routes</a>
+  <a href="#translate">🎤 Translator</a>
+  <a href="#budget">💸 Budget Eats</a>
+</nav>
+
+<section id="food" class="card">
+  <h2>🍽 Food Recommendations</h2>
+  <p>Popular local dishes:</p>
+  <ul>
+    <li>Pizza Margherita - Italy</li>
+    <li>Sushi - Japan</li>
+    <li>Paella - Spain</li>
+    <li>Biryani - India</li>
+  </ul>
+</section>
+
+<section id="stay" class="card">
+  <h2>🏨 Stay Options</h2>
+  <p>Top-rated hotels nearby:</p>
+  <ul>
+    <li>Grand Palace Hotel ★★★★☆</li>
+    <li>City Comfort Inn ★★★☆☆</li>
+    <li>Backpacker's Hostel ★★☆☆☆</li>
+  </ul>
+</section>
+
+<section id="route" class="card">
+  <h2>🗺 Shortest & Best Route</h2>
+  <p>From your location to Eiffel Tower:</p>
+  <iframe
+    src="https://www.google.com/maps/embed/v1/directions?key=YOUR_API_KEY&origin=place_id:ChIJrTLr-GyuEmsRBfy61i59si0&destination=Eiffel+Tower,Paris"
+    height="400"
+    allowfullscreen>
+  </iframe>
+</section>
+
+<section id="translate" class="card">
+  <h2>🎤 Voice Translator</h2>
+  <textarea id="output" placeholder="Translation will appear here..."></textarea>
+  <button onclick="startRecognition()">🎙 Speak</button>
+</section>
+
+<section id="budget" class="card">
+  <h2>💸 Budget-Friendly Restaurants</h2>
+  <ul>
+    <li>Tasty Bites - $</li>
+    <li>Food Corner - $</li>
+    <li>Veggie Delight - $$</li>
+  </ul>
+</section>
+
+<script>
+  function startRecognition() {
+    const output = document.getElementById('output');
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+      const transcript = event.results[0][0].transcript;
+      output.value = "Recognized: " + transcript + "\n(Translation: Coming soon)";
+    };
+
+    recognition.onerror = function(event) {
+      output.value = "Error occurred: " + event.error;
+    };
+  }
+</script>
+
+</body>
+</html>
